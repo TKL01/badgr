@@ -1,7 +1,11 @@
 from loguru import logger
 import os
-import tensorflow as tf
 
+#########################################################################################################
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
+#########################################################################################################
 
 def config_gpu(gpu=0, gpu_frac=0.3):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu)
@@ -12,9 +16,13 @@ def config_gpu(gpu=0, gpu_frac=0.3):
 
 def enable_static_execution(gpu=0, gpu_frac=0.3):
     graph = tf.Graph()
-    session = tf.Session(graph=graph, config=config_gpu(gpu=gpu, gpu_frac=gpu_frac))
-    session.__enter__() # so get default session works
 
+#########################################################################################################
+    #session = tf.Session(graph=graph, config=config_gpu(gpu=gpu, gpu_frac=gpu_frac))
+
+    session = tf.compat.v1.Session(graph=graph, config=config_gpu(gpu=gpu, gpu_frac=gpu_frac))
+    session.__enter__() # so get default session works
+#########################################################################################################
 
 def yaw_rotmat(yaw):
     batch_size = tf.shape(yaw)[0]

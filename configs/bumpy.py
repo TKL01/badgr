@@ -150,13 +150,16 @@ def get_trainer_params():
 
         # dataset
         batch_size=32,
-
+        
+#########################################################################################################
         # optimizer
         cost_fn=cost_fn,
-        optimizer_cls=tf.train.AdamOptimizer,
-        learning_rate=1e-4,
+        #optimizer_cls=tf.train.AdamOptimizer,
+        # Use Keras optimizers
+        optimizer_cls = tf.keras.optimizers.Adam(learning_rate=0.001)
+        #learning_rate=1e-4,
     )
-
+#########################################################################################################
 ##################
 ### Get params ###
 ##################
